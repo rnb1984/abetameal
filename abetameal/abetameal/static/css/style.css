@@ -1,0 +1,246 @@
+/***************************
+    1. base
+    2. graphics
+    3. introductions
+    4. details
+    5. pizza choice
+    6. predictions
+    7. pizza
+    
+***************************/
+
+
+small,h1,h2,h3,h4,h5,h6, p{
+    font-weight: lighter !important;
+    font-family:'Open Sans',Arial,sans-serif !important;
+}
+em, small{
+    color: #236AD9;
+}
+
+.deep-blue{
+    background-color: #236AD9;
+}
+
+.blue{
+    background-color: #A7C3F0;
+}
+
+.light-blue{
+    background-color: #EDF3FC;
+}
+
+
+.next{
+    float:right;
+}
+
+
+
+/***************************
+    graphics
+***************************/
+
+#like {
+    width: 71px;
+    height: 71px;
+    background: url(/static/graphics/sypf-btn.png) 0 0;
+}
+
+#like:hover {
+    background: url(/static/graphics/sypf-btn.png) 0 71px;
+}
+
+#vs {
+    width: 50px;
+    height: 35px;
+    background: url(/static/graphics/sypf-btn.gif) -35px 0;
+}
+
+#yes {
+    width: 35px;
+    height: 35px;
+    background: url(/static/graphics/sypf-btn.gif) 0 -36px;
+}
+
+#no {
+    width: 35px;
+    height: 35px;
+    background: url(/static/graphics/sypf-btn.gif) -35px -36px;
+}
+
+#pz-med{
+    width: 76px;
+    height: 76px;
+    background: url(/static/graphics/icons.png) -1px 75px;
+}
+
+#pz-small{
+    width: 25px;
+    height: 25px;
+    background: url(/static/graphics/icons.png) 24px -52px;
+}
+
+#like, #yes, #no{
+    cursor:pointer;
+    float: left;
+    margin-left: 5px;
+}
+.answer{
+    float:left;
+    margin: 10px 5px;
+}
+
+/***************************
+    introductions
+***************************/
+.meal-info, .hili, .intro,.end{
+    display: block;
+    padding: 5px 20px;
+}
+
+.logo{
+    display: block;
+    margin: 30px auto;
+}
+
+.meal-btns, .meal-info, .intro,.end{
+    background-color: #fff;
+}
+
+.intro{
+    min-height: 1000px;
+}
+.end{
+    min-height: 250px;
+}
+
+/***************************
+    details
+***************************/
+
+/***************************
+    pizza choice
+***************************/
+
+.pizzas{
+    min-height: 800px;
+    padding: 10px;
+}
+.pizzas-cont{
+    position:static;
+    float:left;
+}
+
+.vers{
+    display:block;
+    position:absolute;
+    top:22%;
+    left:47%;
+    z-index: 5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.pz-num{
+    color: #d90e28;
+    z-index: 5;
+    position: absolute;
+    top:7%;
+    left:92%;
+}
+
+.pz-round{
+    font-size: 14px;
+    float: right;
+    margin-top: 50px;
+    color: #faefcd;
+}
+
+/***************************
+    predictions 
+***************************/
+
+.pred-cont{
+    display:block;
+    margin: 0 auto;
+    position:relative;
+    min-height: 300px;
+    overflow: auto;
+    padding: 0 0 !important;
+}
+
+.pred-cont h2{
+    color: #fff;
+    text-align: center;
+    
+}
+
+/***************************
+    pizza 
+***************************/
+.meal-cont{
+    float: left;
+    width:100%;
+    height:500px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.meal-name{
+    min-height:100px;
+    text-transform: capitalize;
+    border-bottom: 1px solid #A7C3F0;
+    padding: 0 15px;
+    box-shadow: 0 8px 30px -5px rgba(0, 0, 0, 0.15)
+}
+
+.meal-image {
+    width:100%;
+    height:200px;
+    overflow: hidden;
+}
+
+.meal-image img{
+    display:block;
+    width: 100%;
+    margin: auto;
+}
+
+.meal-info{
+    width:100%;
+    height: 300px;
+}
+.meal-shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.meal-btns{
+    float:right;
+    display:block;
+    margin: 1px auto;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+}
+
+.meal-pz{
+    padding:44%;
+}
+
+@media only screen and  (max-width: 768px) {
+    .meal-image {
+        height:150px;
+    }
+    .meal-btns{
+        top: 20%;
+        left: 35%;
+    }
+}
+
+@media only screen and  (max-width: 480px) {
+    .meal-image {
+        height:100px;
+    }
+}

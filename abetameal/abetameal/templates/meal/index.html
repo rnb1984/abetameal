@@ -1,0 +1,22 @@
+{% extends 'meal/base.html' %}
+
+{% block content %}
+
+{% verbatim %}
+<div class="intro" ng-app="mealApp" ng-controller='mealController'>
+	<div class="col-xs-2">
+		<ol>
+			<li ng-repeat='ingredient in ingredients'><h4>{{ ingredient.name }}</h4>
+				<small>id: {{ ingredient.id }} | index: {{ ingredient.index }} | amount: {{ ingredient.amount }}</small></li>
+		</ol></div>
+	<div class="col-xs-4"><ol>
+			<li ng-repeat='meal in meals'><h4><a href="{{ meal.recipe }}">{{ meal.name }}</a></h4>
+				<img class="meal-image" ng-src='{{ meal.pic }}'/>
+				<small>id: {{ meal.id }} | Ingredients below</small>
+				<ol><li ng-repeat="ing in meal.ingrs">{{ ing }} </li></ol></li>
+		</ol></div>
+</div>
+
+{% endverbatim %}
+
+{% endblock %}
