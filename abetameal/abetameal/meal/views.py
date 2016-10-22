@@ -43,7 +43,7 @@ REST APIs
 # Meals
 class MealList(generics.ListCreateAPIView):
     # returns a list of Meals
-    queryset = Meal.objects.all().order_by('name')
+    queryset = Meal.objects.all().order_by('index')
     serializer_class = MealSerializer
 
 class MealDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -54,7 +54,7 @@ class MealDetails(generics.RetrieveUpdateDestroyAPIView):
 # Ingredients
 class IngredientList(generics.ListCreateAPIView):
     # edit a ingredients on id/pk
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.all().order_by('index')
     serializer_class = IngredientSerializer
 
 class IngredientDetails(generics.RetrieveUpdateDestroyAPIView):
