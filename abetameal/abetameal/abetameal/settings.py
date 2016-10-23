@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'abetameal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -88,6 +88,29 @@ DATABASES = {
         'PORT':'',# local is 5432
     }
 }
+"""
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'db_meal',
+            'USER': 'postgres',
+            'PASSWORD': 'adminpassword',
+            'HOST':'', # local is 127.0.0.1
+            'PORT':'',# local is 5432
+        }
+    }
 
 
 # Password validation
@@ -134,7 +157,9 @@ STATICFILES_DIRS = [
     STATIC_PATH,
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+#STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+# STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

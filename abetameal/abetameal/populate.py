@@ -26,10 +26,12 @@ ingrdIndex = IndexList()
 meals = MealMatrix()
 db = ModelPopulate()
 
+DIR_PROJECT = 'abetameal/'
+
 def populate():
   
   # populate database with meals and set up matrix
-  with open('meal_ingredients.csv', 'rb') as csvfile:
+  with open( DIR_PROJECT + 'meal_ingredients.csv', 'rb') as csvfile:
       row = csv.reader(csvfile, delimiter=',')
       for ingr in row:
           if ingr[0] == 'ingredient':
@@ -53,7 +55,7 @@ def populate():
   meals.set_size(ingrdIndex.size(), Num_of_meals)
   
   # populate meal index, meal matrix and save all meals in database
-  with open('meal_recipe.csv', 'rb') as csvfile:
+  with open(DIR_PROJECT + 'meal_recipe.csv', 'rb') as csvfile:
    row = csv.reader(csvfile, delimiter=',')
    
    for meal in row:
