@@ -32,25 +32,17 @@ class UserProfile(models.Model):
 	"""
 	
     user = models.OneToOneField(User)
-    exp_index = models.IntegerField(default=0)
-    dob = models.IntegerField(default=0)
+    home = models.IntegerField(default=0)
+    pref = models.IntegerField(default=0)
+    dob = models.DateField(default=0)
     gender = models.CharField(default="U", max_length=1, choices=GENDER_CHOICES)
     allergies = models.CharField(default="0", max_length=128)
     diet = models.CharField(default="0", max_length=128)
-    occupation = models.IntegerField(default=0)
-    nationality = models.CharField(default="0", max_length=128)
-    
-    
-    """
-	UserPreferance
-	- Stores fk to meal pair index, with 0 or 1 rating, used in comparsisons
-	- Stores latest prediction as meal index integer
-	- Stores boolean for if prediction was true or false
-	"""
-	
-	# Current prediction = int    predict = models.IntegerField(default=0)			!!
-	# Prediction correct = boolean   correct = models.BooleanField(default=False)	!!
-    slug = models.SlugField()
+    hunger = models.IntegerField(default=0)
+    #exp_index = models.IntegerField(default=0)
+    #occupation = models.IntegerField(default=0)
+    #nationality = models.CharField(default="0", max_length=128)
+    slug = models.SlugField(max_length=128)
 
     def save(self, *args, **kwargs):
          self.slug = slugify(self.user.username)
@@ -68,13 +60,13 @@ class Meal(models.Model):
 
 	name = models.CharField(max_length=128) 
 	index = models.IntegerField(default=0)
-	pic = models.URLField()
-	recipe = models.URLField()
-	ingrs = ArrayField(models.IntegerField(), blank=True)
-	# Array specific to Postgres
-	# allergies = ArrayField(models.CharField(max_length=128, default=''), blank=True), ~ possible feature for end system
-	# diet = ArrayField(models.CharField(max_length=128, default=''), blank=True), ~ possible feature for end system
-	data = JSONField(default={})
+	pic = models.URLField( blank=True )
+	recipe = models.URLField( blank=True )
+	ingrs = ArrayField( models.IntegerField(), blank=True)
+	cuisines = ArrayField( models.IntegerField(), blank=True)
+	allergies = ArrayField( models.IntegerField(), blank=True)
+	diets = ArrayField( models.IntegerField(), blank=True)
+	data = JSONField(default={}, blank=True)
 	slug = models.SlugField(max_length=128) # defaults to 50 on postgres
 	
 	def save(self, *args, **kwargs):
@@ -94,7 +86,7 @@ class Ingredient(models.Model):
 	name = models.CharField(max_length=128)
 	index = models.IntegerField(default=0)
 	amount = models.IntegerField(default=0)
-	slug = models.SlugField()
+	slug = models.SlugField(max_length=128)
 	
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.name)
@@ -109,12 +101,12 @@ class PairPreferance(models.Model):
 	UserPreferance
 	- Stores pair of meal index, with 0 or 1 rating, used in comparsisons
 	"""
-	user = models.IntegerField(default=0)# Index of pair
-	index = models.IntegerField(default=0)# Value of pair
+	user = models.IntegerField(default=0)
+	index = models.IntegerField(default=0)
 	value = models.IntegerField(default=2)
-	date = models.DateField(default=date.today())# Date of pair made
+	date = models.DateField(default=date.today())
 	time = models.IntegerField(default=0)
-	slug = models.SlugField()
+	slug = models.SlugField(max_length=128)
 	
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.index)
@@ -123,3 +115,83 @@ class PairPreferance(models.Model):
 	def __unicode__(self):
 		index = str(self.index)
 		return index
+
+
+class Dinner(models.Model):
+	"""
+	Dinner
+	- Stores details on dinner meal and ranked meals
+	"""
+	
+	name = models.CharField(max_length=128)
+	users = ArrayField( models.IntegerField(), blank=True)
+	home = models.IntegerField(default=0)
+	meal = models.IntegerField(default=0)
+	menu = JSONField(default={}, blank=True)
+	pref = models.IntegerField(default=0)
+	likes = models.IntegerField(default=0)
+	time = models.IntegerField(default=0)
+	cooking = models.BooleanField(default=False)
+	pickup = JSONField(default={}, blank=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	slug = models.SlugField(max_length=128)
+	
+	def save(self, *args, **kwargs):
+	    self.slug = slugify(self.name)
+	    super(Dinner, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+	    return self.meal
+
+
+class Home(models.Model):
+	"""
+	Home
+	- Stores details of the home
+	"""
+	name = models.CharField(max_length=128)
+	users = ArrayField( models.IntegerField(), blank=True)
+	pref = models.IntegerField(default=0)
+	slug = models.SlugField(max_length=128)
+	
+	def save(self, *args, **kwargs):
+	    self.slug = slugify(self.name)
+	    super(Dinner, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+	    return self.meal
+
+
+class Categories(models.Model):
+	"""
+	Categories
+	- Stores name of categry with items that make up the category
+	"""
+	
+	name = models.CharField(max_length=128)
+	items = JSONField(default={}, blank=True)
+	slug = models.SlugField(max_length=128)
+	
+	def save(self, *args, **kwargs):
+	    self.slug = slugify(self.name)
+	    super(Ingredient, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+	    return self.name
+
+class Preferance(models.Model):
+	"""
+	Preferance
+	- Stores meal pair index, with 0 or 1 rating, used in comparsisons
+	- Stores latest prediction as meal index integer
+	- Stores boolean for if prediction was true or false
+	"""
+	owner = models.IntegerField(default=0)
+	rank = ArrayField( models.IntegerField(), null=True, blank=True)
+	model = JSONField(default={}, blank=True)
+	pairs = JSONField(default={}, blank=True)
+	ready = models.BooleanField(default=False)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+	def __unicode__(self):
+	    return self.rank

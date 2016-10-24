@@ -55,7 +55,7 @@ def populate():
   meals.set_size(ingrdIndex.size(), Num_of_meals)
   
   # populate meal index, meal matrix and save all meals in database
-  with open(DIR_PROJECT + 'meal_recipe.csv', 'rb') as csvfile:
+  with open( DIR_PROJECT + 'meal_recipe.csv', 'rb') as csvfile:
    row = csv.reader(csvfile, delimiter=',')
    
    for meal in row:

@@ -14,7 +14,15 @@ class ModelPopulate():
 	# Meal
 	def add_meal(self, meal_name, meal_image, meal_index, meal_recipe, meal_ingredients): # populate database with meals
 	  print "Meal added to database, meal_name", meal_name, "meal_image", meal_image, "meal_index_number", meal_index
-	  p = Meal.objects.get_or_create(name=meal_name.lower(), pic=meal_image , index=meal_index,recipe= meal_recipe,ingrs=meal_ingredients )[0]
+	  empty = [0]
+	  p = Meal.objects.get_or_create(name=meal_name.lower(),
+	  	pic=meal_image,
+	  	index=meal_index,
+	  	recipe= meal_recipe,
+	  	ingrs=meal_ingredients,
+	  	cuisines= empty,
+	  	allergies= empty,
+	  	diets= empty )[0]
 	  p.save()
 	  return p
 
@@ -30,4 +38,4 @@ class ModelPopulate():
 	  u.save()
 	  return u
 
-	# PairPreferances
+	# Preferances
