@@ -1,5 +1,20 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+populate
+
+Description
+- populates db with categries, meals and ingredients
+- creates test User and Homes
+
+Functions
+- populate()
+- create_meals()
+- create_categories()
+- create_homes()
+- create_users()
+"""
+
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'abetameal.settings')
 
@@ -11,11 +26,11 @@ import urllib
 import urllib2
 from datetime import date
 
-#from meal.models import Meal, Ingredient, UserProfile
 from meal.models import Ingredient
 from meal.model_populate import ModelPopulate
+from meal.models import Home, Preferance
 
-# classes to set up matrix and index items
+# Setting up matrix and index items
 from indexs.indexList import IndexList
 from indexs.mealMatrix import MealMatrix
 
@@ -29,7 +44,14 @@ db = ModelPopulate()
 DIR_PROJECT = 'abetameal/'
 
 def populate():
-  
+  create_meals()
+  h = create_homes()
+  print 'populated homes: ', h, h[0].id, h[1].id, h[3].id
+
+  u, u_h = create_users()
+  print 'populated users: ', u, u_h.users, u_h
+
+def create_meals():
   # populate database with meals and set up matrix
   with open( DIR_PROJECT + 'meal_ingredients.csv', 'rb') as csvfile:
       row = csv.reader(csvfile, delimiter=',')
@@ -50,7 +72,6 @@ def populate():
               except Exception:
                 db.add_ingredients(ingrdIndex.get_item(index_of_ingrd), index_of_ingrd )
                 
-
   # create meal matrix
   meals.set_size(ingrdIndex.size(), Num_of_meals)
   
@@ -91,7 +112,29 @@ def populate():
         #print 'To be added',meal[0], meal[1],meal_in, meal_recipe, meal_ingredients
         added_meal = db.add_meal(meal[0], meal[1],meal_in, meal_recipe, meal_ingredients)
 
+def create_homes():
+  # add 4 homes
+  homes = []
+  home_nos = [ x for x in range(1,5)]
+  h_name = 'Home '
+  for home in home_nos:
+    homes.append( db.add_home(h_name + str(home)) )
+  return homes
+
+def create_users():
+  # add passwords
+  users_names = ['Joel','Kaz']
+  users =[]
+  for name in users_names:
+    u = db.add_user(name,name+'@mail.com','password')
+    h = Home.objects.get( name= 'Home 3')
+    user = db.add_userprofile(u, h.id, [0], [1,2], 'M')
+    users.append( user )
+  db.update_home(h, [users[0].id, users[1].id] , 0 )
+  return users, h
+
+
 # Start execution here!
 if __name__ == '__main__':
-  print "Starting meal face model test script..."
+  print "Starting meal model test script..."
   populate()

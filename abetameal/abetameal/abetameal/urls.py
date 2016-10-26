@@ -19,22 +19,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.static import *
 
-# For API's
 from meal import views
-from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     
     # APIs
-    url(r'^meals/', views.MealList.as_view(), name='meals'),
-    url(r'^meal/(?P<pk>[0-9]+)/$', views.MealDetails.as_view(), name='meal'),
-    url(r'^ingredients/', views.IngredientList.as_view(), name='ingredients'),
-    url(r'^ingredient/(?P<pk>[0-9]+)/$', views.IngredientDetails.as_view(), name='ingredient'),
+    url(r'^api/', include( "meal.api.urls", namespace='meal-api')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # For uploading media files
 
-urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

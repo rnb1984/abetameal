@@ -12,10 +12,10 @@ var mealApp = angular.module('mealApp',[])
 mealApp.controller('mealController', function ($scope, $http, $rootScope ) {
 
     // urls
-    var meal_in = $http.get("/meals/"), ingredients_in = $http.get("/ingredients/");
+    var meal_in = $http.get("api/meals/"), ingredients_in = $http.get("api/ingredients/");
     
     // vars
-    $scope.master={};    
+    $scope.master={};
     
     meal_in.then(function (response) {
         // set paramaters
