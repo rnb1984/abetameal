@@ -77,18 +77,6 @@ WSGI_APPLICATION = 'abetameal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_meal',
-        'USER': 'postgres',
-        'PASSWORD': 'adminpassword',
-        'HOST':'', # local is 127.0.0.1
-        'PORT':'',# local is 5432
-    }
-}
-"""
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
