@@ -101,6 +101,30 @@ def restricted(request):
     return HttpResponse("You are not logged in")
 
 """
+Views
+- Preferance Page
+- Details Page
+- Home Feed
+- Meal
+"""
+def preferances(request):
+    context_dict = { 'title' : 'Preferance Page' }
+    return render(request, 'meal/index.html', context_dict)
+
+def details(request):
+    context_dict = { 'title' : 'Details Page' }
+    return render(request, 'meal/index.html', context_dict)
+
+def home_feed(request):
+    context_dict = { 'title' : 'Home' }
+    return render(request, 'meal/index.html', context_dict)
+
+def dinner_meal(request):
+    context_dict = { 'title' : 'Dinner' }
+    return render(request, 'meal/index.html', context_dict)
+
+
+"""
 Views API
 - comparision_pairs
 """
