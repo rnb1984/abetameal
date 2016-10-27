@@ -52,6 +52,7 @@ REST APIs
 -- DinnerHomeDetails
 -- DinnerMealDetails
 """
+################################################################
 # Meals
 class MealList(ListCreateAPIView):
     # returns a list of Meals
@@ -63,7 +64,7 @@ class MealDetails(RetrieveUpdateDestroyAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealDetailSerializer
     lookup_field = 'pk'
-
+################################################################
 # Ingredients
 class IngredientList(ListCreateAPIView):
     # edit a ingredients on id/pk
@@ -75,6 +76,7 @@ class IngredientDetails(RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientDetailSerializer
 
+################################################################
 # UserProfile
 class UserProfileList(ListCreateAPIView):
     # returns a list of profiles
@@ -86,11 +88,19 @@ class UserProfileDetails(RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
+################################################################
+# Home
+class UserHomeList(ListCreateAPIView):
+    # edit a pairs depending on a id/pk
+    queryset = UserProfile.objects.all()
+    serializer_class =  UserHomeSerializer
+
 class UserHomeDetails(RetrieveUpdateDestroyAPIView):
     # edit a pairs depending on a id/pk
     queryset = UserProfile.objects.all()
     serializer_class =  UserHomeSerializer
 
+################################################################
 # PairPref
 class PairPrefLists(ListCreateAPIView):
     # returns a list of pairs
@@ -102,7 +112,13 @@ class PairPrefDetails(RetrieveUpdateDestroyAPIView):
     queryset = PairPreferance.objects.all()
     serializer_class = PairPreferanceSerializer
 
+################################################################
 # Dinner
+class DinnerMealList(ListCreateAPIView):
+    # edit a pairs depending on a id/pk
+    queryset = Dinner.objects.all()
+    serializer_class = DinnerMealSerializer
+
 class DinnerMealDetails(RetrieveUpdateDestroyAPIView):
     # edit a pairs depending on a id/pk
     queryset = Dinner.objects.all()

@@ -91,9 +91,9 @@ if 'RDS_DB_NAME' in os.environ:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'db_meal',
-            'USER': 'postgres',
+            'USER': 'postgres', # local: postgres | c9: ubuntu
             'PASSWORD': 'adminpassword',
             'HOST':'', # local is 127.0.0.1
             'PORT':'',# local is 5432

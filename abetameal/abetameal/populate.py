@@ -41,7 +41,8 @@ ingrdIndex = IndexList()
 meals = MealMatrix()
 db = ModelPopulate()
 
-DIR_PROJECT = 'abetameal/'
+DIR_PROJECT = ''
+# DIR_PROJECT = 'abetameal/'
 
 def populate():
   create_meals()

@@ -128,12 +128,21 @@ def dinner_meal(request):
 Views API
 - comparision_pairs
 """
-def comparision_pair(request):
+def comparision_pair_first(request):
     # Updates a single pair but will get a set
     user= request.user
     if request.method == 'GET':
         # API to Create pairs set
-        context_dict =  get_comparision_pairs(user)
+        context_dict =  get_first_comparision_pairs()
+        return JsonResponse(context_dict)
+
+def comparision_pair(request):
+    # Updates a single pair but will get a set
+    #user= request.user
+    user = User.objects.get(username='Joel')
+    if request.method == 'GET':
+        # API to Create pairs set
+        context_dict =  get_comparision_pairs(user.id)
         return JsonResponse(context_dict)
 
     elif request.method == 'POST':
@@ -141,7 +150,7 @@ def comparision_pair(request):
         json_dict = json.loads(request.body)
         index =  json_dict['index']
         value =  json_dict['value']
-        context_dict = update_compared_pair(userid, index, value)
+        context_dict = update_compared_pair(user.id, index, value)
         return JsonResponse(context_dict)
 
     elif request.method == 'PUT':
@@ -149,7 +158,7 @@ def comparision_pair(request):
         json_dict = json.loads(request.body)
         index =  json_dict['index']
         value =  json_dict['value']
-        context_dict = add_compared_pair(userid, index, value)
+        context_dict = add_compared_pair(user.id, index, value)
         return JsonResponse(context_dict)
 
 """
@@ -188,4 +197,10 @@ def get_comparision_pairs(user):
     pref = Preferance.objects.get(owner=user, ownertype=True)
     start = pref.model['train'][0]['index'][-1]
     comparision_pairs = pairSet.get_dict(start)
+    return comparision_pairs
+
+def get_first_comparision_pairs():
+    pairSet = PairSet()
+    # create first comparision pair 
+    comparision_pairs = pairSet.get_first_dict()
     return comparision_pairs

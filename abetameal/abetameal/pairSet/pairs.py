@@ -77,6 +77,7 @@ class PairSet:
     - get_comp_pairs
     - get_index
     - get_dict
+    - get_first_dict
     - prep_pairs
 
     """

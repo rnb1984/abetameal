@@ -15,6 +15,13 @@
 				<small>id: {{ meal.id }} | Ingredients below</small>
 				<ol><li ng-repeat="ing in meal.ingrs">{{ ing }} </li></ol></li>
 		</ol></div>
+		<div class="col-xs-2">
+			pairs :
+			<li ng-repeat='pair in pairs'><small ng-repeat='p in pair'> {{ p }}</small></li>
+			homes :
+			<li ng-repeat='home in homes'><h4> {{ home }}</h4></li></div>
+		<div class="col-xs-2">users : {{ users }} dinners :{{ dinners }}</div>
+
 </div>
 
 {% endverbatim %}

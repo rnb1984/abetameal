@@ -27,6 +27,7 @@ urlpatterns = [
     
     # APIs
     url(r'^api/', include( "meal.api.urls", namespace='meal-api')),
+    url(r'^api/u/', include( "meal.urls", namespace='user-api')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # For uploading media files
 
 
